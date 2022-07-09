@@ -1,0 +1,56 @@
+{% extends "base.html" %} {% block title %} Register Account - KenaKata {%
+endblock %} {% block content %}
+<div class="auth-wrap-background">
+  <div class="auth-center">
+    <div class="auth-blur auth-size">
+      <div class="auth-wrap-background"></div>
+    </div>
+  </div>
+
+  <div class="auth-center">
+    <div class="auth__inner auth-size">
+      <div class="auth__sidebar auth__inner__section">
+        <div class="auth__form auth__inner__section">
+          <div class="form">
+            <h1 class="form__title">Register Account</h1>
+
+            <form action="" method="POST">
+              {{ form.hidden_tag() }}
+
+              <label for="" class="form__label"></label>
+              <span class="form__label__text">{{ form.username.label() }}</span>
+              {{ form.username(class='form__input') }}
+              <div class="form__input-border"></div>
+
+              <label for="" class="form__label"></label>
+              <span class="form__label__text">{{ form.email.label() }}</span>
+              {{ form.email(class='form__input') }}
+              <div class="form__input-border"></div>
+
+              <label for="" class="form__label"></label>
+              <span class="form__label__text"
+                >{{ form.password1.label() }}</span
+              >
+              {{ form.password1(class='form__input') }}
+              <div class="form__input-border"></div>
+
+              <label for="" class="form__label"></label>
+              <span class="form__label__text"
+                >{{ form.password2.label() }}</span
+              >
+              {{ form.password2(class='form__input') }}
+              <div class="form__input-border"></div>
+              <h5 class="text-center mt-3">
+                Already have an account?
+                <a href="{{ url_for('login') }}"> Sign in </a>
+              </h5>
+
+              <button class="button">{{ form.submit.label() }}</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

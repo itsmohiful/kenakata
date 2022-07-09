@@ -26,7 +26,22 @@
   <body>
     {% include 'includes/nav.html' %}
 
-    <div class="container">{% block content %} {% endblock content %}</div>
+    <div class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %}
+      <div class="mt-2 text-center alert alert-{{ category }}">
+        {{ message }}
+        <button
+          type="button"
+          class="ml-2 mb-1 close"
+          data-dismiss="alert"
+          aria-label="close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %} {% endif %} {% endwith %} {% block content %} {% endblock %}
+    </div>
 
     <!-- JavaScript Bundle with Popper -->
     <script

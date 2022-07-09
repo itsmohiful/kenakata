@@ -1,0 +1,58 @@
+{% extends "base.html" %} {% block title %} Home Page {% endblock %} {% block
+content %}
+<section class="py-5">
+  <div class="row">
+    <!-- sidebar -->
+    <div class="col-md-4">
+      <h5>Left Sidebar</h5>
+    </div>
+    <!-- end sidebar -->
+
+    <!-- main section -->
+    <div class="col-md-8">
+      <h6>Demo Title For Products</h6>
+
+      <!-- Custom cards -->
+      <section class="mt-5 cards-section">
+        <div class="container">
+          <h3>Custom Cards</h3>
+          <div class="row">
+            {% for product in products %}
+            <div class="col-lg-4 col-md-6 mt-md-3 d-flex">
+              <div class="item-card d-flex">
+                <div class="body">
+                  <div class="card-title red">
+                    <h5>{{ product.name }}</h5>
+                  </div>
+                  <div class="body-text text-center py-3 mb-4">
+                    <h5>
+                      Price : <span class="pl-1">{{ product.price }} $</span>
+                    </h5>
+                    <h6>
+                      Barcode :
+                      <span class="pl-1">{{ product.barcode }}</span>
+                    </h6>
+                  </div>
+
+                  <div class="text-center mb-2">
+                    <a href="#" class="btn btn-olive">More Info</a>
+                  </div>
+
+                  <div class="text-center btn-pad">
+                    <a href="#" class="btn btn-green">Purchase</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          <hr />
+        </div>
+      </section>
+
+      <!-- ./ Custom cards -->
+    </div>
+    <!-- end main section -->
+  </div>
+</section>
+{% endblock %}
