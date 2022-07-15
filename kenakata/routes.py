@@ -1,7 +1,7 @@
 from crypt import methods
 
 from flask import flash, redirect, render_template, url_for
-from flask_login import login_user
+from flask_login import login_user, logout_user
 
 from kenakata import app, bcrypt, db
 from kenakata.forms import LoginForm, RegisterForm
@@ -27,6 +27,8 @@ def register():
 
         db.session.add(user)
         db.session.commit()
+        login_user(user)
+        flash(f'Account has been created and Login as: {user.username}', category='success')
         return redirect(url_for('home'))
     
     if form.errors != {}:
@@ -44,9 +46,16 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user)
-            flash(f'You are login as: {user.username}')
+            flash(f'You are login as: {user.username}', category='success')
             return redirect(url_for('home'))
         else:
             flash('Username or Password are not matche! Please try again', category='danger')
 
     return render_template("login.html", form=form)
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    flash('You have been log out!',category='success')
+    return redirect(url_for('login'))

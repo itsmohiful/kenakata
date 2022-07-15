@@ -8,13 +8,14 @@ from kenakata.models import User
 
 class RegisterForm(FlaskForm):
 
-    def validate_username(self, username_to_check):
-        user = User.query.filter_by(username=username_to_check.data).first()
+    def validate_username(self,username):
+        print(f'validates: {username}')
+        user = User.query.filter_by(username=username.data).first()
         if user:
             raise ValidationError('Username alredy exists!')
 
-    def validate_email(self, email_to_check):
-        email = User.query.filter_by(email=email_to_check.data).first()
+    def validate_email(self,email):
+        email = User.query.filter_by(email=email.data).first()
         if email:
             raise ValidationError('Email alredy exists!')
 
