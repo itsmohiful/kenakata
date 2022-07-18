@@ -20,6 +20,10 @@ class Product(db.Model):
     def __repr__(self):
         return self.name
 
+    def buy(self, user):
+        user.budget -= int(self.price)
+        db.session.commit()
+
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer(), primary_key=True, unique=True)
@@ -33,9 +37,13 @@ class User(db.Model, UserMixin):
     @property
     def budget_prettify(self):
         if len(str(self.budget)) >= 4:
-            return f'{ str(self.budget)[:-3] },{ str(self.budget)[-3:]}$'
+            return f'{ str(self.budget)[:-3] },{ str(self.budget)[-3:]} $'
         else:
-            return 'f{self.budget}$'
+            return f'{self.budget} $'
+
+
+    def can_purchase(self, product_obj):
+        return self.budget >= int(product_obj.price)
 
     # @property
     # def password(self):

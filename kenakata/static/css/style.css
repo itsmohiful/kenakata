@@ -284,7 +284,7 @@ html {
 }
 
 .auth-size {
-  max-height: 540px;
+  max-height: 640px;
   max-width: 720px;
   /* height: 540px; */
   width: 100%;
@@ -377,6 +377,9 @@ html {
 /*# sourceMappingURL=style.css.map */
 /* =========login page end =======*/
 
+
+
+
 /* ======product details start ======== */
 @import url(https://fonts.googleapis.com/css?family=Poppins);
 @import url(https://fonts.googleapis.com/css?family=Montserrat);
@@ -408,12 +411,12 @@ body {
   color: #666;
 }
 
-a {
+.lightbox-blanket a {
   color: #235ba8;
   text-decoration: none;
 }
 
-a:hover {
+.lightbox-blanket a:hover {
   text-decoration: underline;
 }
 /* 

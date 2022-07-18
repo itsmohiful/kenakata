@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block title %} Home Page {% endblock %} {% block
+{% extends "base.html" %} {% block
 content %}
 <section class="py-5">
   <div class="row">
@@ -17,7 +17,7 @@ content %}
           ><i class="fa-solid fa-sack-dollar"></i
         ></span>
         Wallet :
-        <span class="text-success">{{ current_user.budget_prettify }}</span>
+        <span class="text-success fw-bold">{{ current_user.budget_prettify }}</span>
       </h6>
 
       {% else %}
@@ -36,6 +36,9 @@ content %}
           <h3>Custom Cards</h3>
           <div class="row">
             {% for product in products %}
+
+              {% include 'includes/purchased_modal.html' %}
+
             <div class="col-lg-4 col-md-6 mt-md-3 d-flex">
               <div class="item-card d-flex">
                 <div class="body">
@@ -53,11 +56,12 @@ content %}
                   </div>
 
                   <div class="text-center mb-2">
-                    <a href="#" class="btn btn-olive">More Info</a>
+                    <a href="{{ url_for('product_detail') }}" class="btn btn-olive">More Info</a>
                   </div>
 
                   <div class="text-center btn-pad">
-                    <a href="#" class="btn btn-green">Purchase</a>
+                    <!-- <a href="#" class="btn btn-green">Purchase</a> -->
+                    <button class="btn btn-green" data-bs-toggle="modal" data-bs-target="#Modal-PurchaseConfirm-{{ product.id }}">Purchase</button>
                   </div>
                 </div>
               </div>
