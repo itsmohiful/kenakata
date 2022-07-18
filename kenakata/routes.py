@@ -15,6 +15,10 @@ def home():
 
     return render_template("home.html",products=products)
 
+@app.route('/product-detail')
+def product_detail():
+    return render_template("product-details.html")
+
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
