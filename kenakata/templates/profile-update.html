@@ -1,29 +1,28 @@
-{% extends "base.html" %}
-
+{% extends "base.html" %} 
 {% block content %}
 
 
-    <div class="product-form-container">  
-        <form id="contact" action="" method="POST" enctype="multipart/form-data" style="border-top-left-radius: 2rem;
-        border-bottom-right-radius: 2rem; background:rgb(194, 191, 243)">
+    <div class="product-form-container profile">  
+        <form id="contact" action="" method="POST" enctype="multipart/form-data" style="border-top-right-radius: 2rem;
+        border-bottom-left-radius: 2rem; background:rgb(194, 218, 233)">
             {{ form.hidden_tag() }}
-            <h3>Add New Product</h3>
+            <h3>Update User Information</h3>
             
             <fieldset>
-                {{ form.name(placeholder='Product Name') }}
+                {{ form.username() }}
             </fieldset>
             <fieldset>
-                {{ form.price(placeholder='Product Price') }}
+                {{ form.email() }}
             </fieldset>
             <fieldset>
-                {{ form.barcode(placeholder='Barcode') }}
+                {{ form.mobile(placeholder='Mobile Number') }}
+            </fieldset>
+            <fieldset>
+                {{ form.budget(placeholder='Budget') }}
             </fieldset>
             
             <fieldset>
-                {{ form.description(placeholder='Product Description') }}
-            </fieldset>
-            <fieldset>
-                {{ form.image.label() }}
+                {{form.image.label()}}
                 <br>
                 {{ form.image() }}
             </fieldset>

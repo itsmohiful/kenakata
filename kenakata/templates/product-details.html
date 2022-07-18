@@ -11,14 +11,13 @@ block content %}
           <div class="product-details">
             <div class="product-left">
               <div class="product-info">
-                <div class="product-manufacturer">NOOK</div>
-                <div class="product-title">LOUNGE CHAIR</div>
-                <div class="product-price" price-data="320.03">
-                  $320<span class="product-price-cents">03</span>
+                <div class="product-manufacturer">Apple</div>
+                <div class="product-title">{{ product.name }}</div>
+                <div class="product-price" price-data="320.03">{{ product.price }}<span class="product-price-cents">03</span>
                 </div>
               </div>
               <div class="product-image">
-                <img src="https://via.placeholder.com/300" />
+                <img src="{{ url_for('static', filename='product_images/' + product.image) }}" />
               </div>
             </div>
             <div class="product-right">

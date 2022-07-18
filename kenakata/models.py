@@ -1,3 +1,5 @@
+from email.policy import default
+
 from flask_login import UserMixin
 
 from kenakata import bcrypt, db, login_manager
@@ -12,6 +14,7 @@ class Product(db.Model):
     id = db.Column(db.Integer(), primary_key=True, unique=True)
     name = db.Column(db.String(length=200), nullable=True)
     price = db.Column(db.String(length=10), nullable=True)
+    image = db.Column(db.String(length=40), nullable=True,default='default.jpg')
     barcode = db.Column(db.String(length=12), nullable=True)
     description = db.Column(db.String(length=1000),nullable=True)
     owner = db.Column(db.Integer(), db.ForeignKey('user.id'))
@@ -31,6 +34,8 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(length=30), unique=True, nullable=False)
     email = db.Column(db.String(length=30), unique=True, nullable=False)
     password = db.Column(db.String(length=30), nullable=False)
+    image = db.Column(db.String(length=40), nullable=True,default='default.jpg')
+    mobile = db.Column(db.String(length=20),nullable=True)
     budget = db.Column(db.Integer(), nullable=True, default=1000)
     products = db.relationship('Product', backref='owned_user', lazy=True)
     
@@ -46,13 +51,6 @@ class User(db.Model, UserMixin):
     def can_purchase(self, product_obj):
         return self.budget >= int(product_obj.price)
 
-    # @property
-    # def password(self):
-    #     return self.password
-
-    # @password.setter
-    # def password(self, plain_text_password):
-    #     self.password = bcrypt.generate_password_hash(plain_text_password).decode('utf-8')
 
 
     def check_password_correction(self, attempted_password):

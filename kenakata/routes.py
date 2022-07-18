@@ -2,8 +2,10 @@ from flask import flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 
 from kenakata import app, bcrypt, db
-from kenakata.forms import LoginForm, ProductForm, RegisterForm
+from kenakata.forms import (LoginForm, ProductForm, ProfileUpdateForm,
+                            RegisterForm)
 from kenakata.models import Product, User
+from kenakata.utils import save_picture, save_product_picture
 
 
 @app.route("/")
@@ -12,11 +14,6 @@ def home():
     products = Product.query.all()
 
     return render_template("home.html",products=products,title='Home page')
-
-
-@app.route('/product-detail')
-def product_detail():
-    return render_template("product-details.html", title='product details')
 
 
 @app.route('/product-purchase/<int:product_id>', methods=['POST'])
@@ -38,18 +35,23 @@ def product_purchase(product_id):
 def create_product():
     form = ProductForm()
     if form.validate_on_submit():
-        print('valid')
-        product = Product(name=form.name.data, price=form.price.data, barcode=form.barcode.data, description=form.description.data,owned_user=current_user)
+        image_file = save_product_picture(form.image.data)
+
+        product = Product(name=form.name.data, price=form.price.data, barcode=form.barcode.data, description=form.description.data,owned_user=current_user, image=image_file)
+
         db.session.add(product)
         db.session.commit()
-        print('onj create')
+
         flash('New Product has been created!', 'success')
         return redirect(url_for('home'))
 
     return render_template("create-product.html", form=form, title='Add new product')
 
 
-
+@app.route('/product-detail/<int:product_id>')
+def product_detail(product_id):
+    product = Product.query.filter_by(id=product_id).first()
+    return render_template("product-details.html", product=product, title='product details')
 
 
 
@@ -99,3 +101,42 @@ def logout():
     logout_user()
     flash('You have been log out!',category='success')
     return redirect(url_for('login'))
+
+
+
+@app.route('/user-profile')
+@login_required
+def user_profile():
+    return render_template("profile.html", title='User Profile')
+
+
+
+@app.route('/profile-update',methods=['GET', 'POST'])
+@login_required
+def profile_update():
+    form = ProfileUpdateForm()
+
+    if form.validate_on_submit():
+        if form.image.data:
+            image_file = save_picture(form.image.data)
+            current_user.image = image_file
+
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        current_user.mobile = form.mobile.data
+        current_user.budget = form.budget.data
+
+        db.session.commit()
+        flash('Profiel update successfully', 'success')
+        return redirect(url_for('user_profile'))
+
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+        if current_user.mobile:
+            form.mobile.data = current_user.mobile
+        if current_user.budget:
+            form.budget.data = current_user.budget
+        form.image.data = url_for('static', filename='profile_images/' + current_user.image)
+
+    return render_template("profile-update.html", form=form, title='Profile Update')
