@@ -21,6 +21,7 @@ class Product(db.Model):
         return self.name
 
     def buy(self, user):
+        self.owner = user.id
         user.budget -= int(self.price)
         db.session.commit()
 

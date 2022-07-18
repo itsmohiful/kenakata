@@ -17,7 +17,7 @@ content %}
           ><i class="fa-solid fa-sack-dollar"></i
         ></span>
         Wallet :
-        <span class="text-success fw-bold">{{ current_user.budget_prettify }}</span>
+        <span class="text-success fw-bold" style="font-size: 18px;">{{ current_user.budget_prettify }}</span>
       </h6>
 
       {% else %}
@@ -39,17 +39,17 @@ content %}
 
               {% include 'includes/purchased_modal.html' %}
 
-            <div class="col-lg-4 col-md-6 mt-md-3 d-flex">
-              <div class="item-card d-flex">
+            <div class="col-lg-4 col-md-6 mt-md-3">
+              <div class="item-card">
                 <div class="body">
                   <div class="card-title red">
                     <h5>{{ product.name }}</h5>
                   </div>
                   <div class="body-text text-center py-3 mb-4">
-                    <h5>
+                    <h5 style="color:#bdb9b9">
                       Price : <span class="pl-1">{{ product.price }} $</span>
                     </h5>
-                    <h6>
+                    <h6 style="color:#a39f9f">
                       Barcode :
                       <span class="pl-1">{{ product.barcode }}</span>
                     </h6>
@@ -60,7 +60,6 @@ content %}
                   </div>
 
                   <div class="text-center btn-pad">
-                    <!-- <a href="#" class="btn btn-green">Purchase</a> -->
                     <button class="btn btn-green" data-bs-toggle="modal" data-bs-target="#Modal-PurchaseConfirm-{{ product.id }}">Purchase</button>
                   </div>
                 </div>

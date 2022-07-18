@@ -1,0 +1,30 @@
+{% extends "base.html" %} 
+{% block content %}
+
+
+    <div class="product-form-container">  
+        <form id="contact" action="" method="POST">
+            {{ form.hidden_tag() }}
+            <h3>Add New Product</h3>
+            
+            <fieldset>
+                {{ form.name(placeholder='Product Name') }}
+            </fieldset>
+            <fieldset>
+                {{ form.price(placeholder='Product Price') }}
+            </fieldset>
+            <fieldset>
+                {{ form.barcode(placeholder='Barcode') }}
+            </fieldset>
+            
+            <fieldset>
+                {{ form.description(placeholder='Product Description') }}
+            </fieldset>
+            <fieldset>
+                <!-- <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button> -->
+                {{ form.submit() }}
+            </fieldset>
+        </form>
+    </div>
+
+{% endblock %}

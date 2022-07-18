@@ -1,11 +1,8 @@
-from crypt import methods
-from turtle import title
-
 from flask import flash, redirect, render_template, request, url_for
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_required, login_user, logout_user
 
 from kenakata import app, bcrypt, db
-from kenakata.forms import LoginForm, RegisterForm
+from kenakata.forms import LoginForm, ProductForm, RegisterForm
 from kenakata.models import Product, User
 
 
@@ -34,6 +31,29 @@ def product_purchase(product_id):
                 flash(f"Unfortunately, you don't have enough money to purchase {product.name}!", category='danger')
 
     return redirect(url_for('home'))
+
+
+@app.route('/add-new-product', methods=['GET','POST'])
+@login_required
+def create_product():
+    form = ProductForm()
+    if form.validate_on_submit():
+        print('valid')
+        product = Product(name=form.name.data, price=form.price.data, barcode=form.barcode.data, description=form.description.data,owned_user=current_user)
+        db.session.add(product)
+        db.session.commit()
+        print('onj create')
+        flash('New Product has been created!', 'success')
+        return redirect(url_for('home'))
+
+    return render_template("create-product.html", form=form, title='Add new product')
+
+
+
+
+
+
+
 
 
 @app.route("/register", methods=['GET', 'POST'])

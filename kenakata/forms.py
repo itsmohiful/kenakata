@@ -1,9 +1,18 @@
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, StringField, SubmitField
+from wtforms import (IntegerField, PasswordField, StringField, SubmitField,
+                     TextAreaField)
 from wtforms.validators import (DataRequired, Email, EqualTo, Length,
                                 ValidationError)
 
 from kenakata.models import User
+
+
+class ProductForm(FlaskForm):
+    name = StringField(label='Product Name', validators=[Length(max=300), DataRequired()])
+    price = IntegerField(label='Product Price', validators=[DataRequired()])
+    barcode = StringField(label='Barcode', validators=[Length(max=15),DataRequired()])
+    description = TextAreaField(label='Product Details', validators=[DataRequired()])
+    submit = SubmitField(label='Submit')
 
 
 class RegisterForm(FlaskForm):
