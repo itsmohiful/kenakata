@@ -1,7 +1,28 @@
 {% extends "base.html" %}  {%
 block content %}
+{% include "includes/product-delete-modal.html" %}
+{% include "includes/purchased_modal.html" %}
+
 <section class="py-5 detail">
   <div class="lightbox-blanket">
+
+    
+
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %}
+      <div class="mt-2 text-center alert alert-{{ category }}">
+        {{ message }}
+        <button
+          type="button"
+          class="ml-2 mb-1 p-1 close"
+          data-bs-dismiss="alert"
+          aria-label="close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %} {% endif %} {% endwith %}
+
     <div class="pop-up-container">
       <div class="pop-up-container-vertical">
         <div class="pop-up-wrapper">
@@ -11,9 +32,9 @@ block content %}
           <div class="product-details">
             <div class="product-left">
               <div class="product-info">
-                <div class="product-manufacturer">Apple</div>
+                <div class="product-manufacturer">Product No : <span class="pl-1">{{ product.barcode }}</span></div>
                 <div class="product-title">{{ product.name }}</div>
-                <div class="product-price" price-data="320.03">{{ product.price }}<span class="product-price-cents">03</span>
+                <div class="product-price" price-data="{{ product.price }}">{{ product.price }}<span class="product-price-cents"> $ </span>
                 </div>
               </div>
               <div class="product-image">
@@ -64,19 +85,24 @@ block content %}
                   <i class="fa fa-chevron-right"></i>
                 </div>
               </div>
+              <div class="d-flex justify-content-around">
+                <a href="{{ url_for('update_product', product_id = product.id) }}" class="btn btn-info text-decoration-none">Update</a>
+
+                <a href="" class="btn text-decoration-none btn-danger text-white" data-bs-toggle="modal" data-bs-target="#Modal-DeleteConfirm-{{ product.id }}">Delete</a>
+              </div>
             </div>
             <div class="product-bottom">
               <div class="product-checkout">
                 Total Price
                 <div class="product-checkout-total">
                   <i class="fa fa-usd"></i>
-                  <div class="product-checkout-total-amount">0.00</div>
+                  <div class="product-checkout-total-amount">{{ product.price }}</div>
                 </div>
               </div>
               <div class="product-checkout-actions">
-                <a class="add-to-cart" href="#" onclick="AddToCart(event);"
-                  >Add to Cart</a
-                >
+
+                <button class="btn btn-olive" data-bs-toggle="modal" data-bs-target="#Modal-PurchaseConfirm-{{ product.id }}"
+                  >Purchase</button>
               </div>
             </div>
           </div>

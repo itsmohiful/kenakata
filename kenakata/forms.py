@@ -18,6 +18,15 @@ class ProductForm(FlaskForm):
     submit = SubmitField(label='Submit')
 
 
+class ProductUpdateForm(FlaskForm):
+    name = StringField(label='Product Name', validators=[Length(max=300), DataRequired()])
+    price = IntegerField(label='Product Price', validators=[DataRequired()])
+    barcode = StringField(label='Barcode', validators=[Length(max=15),DataRequired()])
+    image = FileField('Product Image',validators=[FileAllowed(['jpg','png','jpeg'])])
+    description = TextAreaField(label='Product Details', validators=[DataRequired()])
+    submit = SubmitField(label='Submit')
+
+
 class RegisterForm(FlaskForm):
 
     def validate_username(self,username):

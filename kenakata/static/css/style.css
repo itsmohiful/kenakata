@@ -181,7 +181,11 @@ h5 {
   color: #fff;
 }
 
-.btn:hover {
+.btn-green:hover {
+  background-color: #7fece7;
+}
+
+/* .btn:hover {
   background-color: #64f1ea;
   color: #fff;
   opacity: 0.8 !important;
@@ -191,7 +195,7 @@ h5 {
   background-color: #64f1ea;
   color: #fff;
   opacity: 0.8 !important;
-}
+} */
 
 .btn-olive {
   background-color: #73c317;
@@ -408,7 +412,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: #222;
-  color: #666;
+  /* color: rgb(187, 180, 180); */
 }
 
 .lightbox-blanket a {
@@ -458,6 +462,11 @@ input[type="button"] {} */
   box-sizing: content-box;
 }
 
+.product-image img{
+  width: 39%;
+  height: 90%;
+}
+
 @media (max-width: 800px) {
   .itemlist {
     width: auto;
@@ -492,6 +501,7 @@ input[type="button"] {} */
   position: fixed;
   overflow-y: scroll;
   top: 0;
+  left:0;
   width: 100vw;
   z-index: 20;
 }
@@ -603,9 +613,9 @@ input[type="button"] {} */
 }
 
 .product-manufacturer {
-  color: #222;
-  font-size: 70px;
-  font-weight: bold;
+  color: #333;
+  font-size: 20px;
+  font-weight: 700;
   line-height: 1;
   margin: -2px;
 }
@@ -622,7 +632,7 @@ input[type="button"] {} */
 }
 
 .product-price-cents {
-  text-decoration: underline;
+  /* text-decoration: underline; */
   vertical-align: top;
   padding-left: 3px;
 }
@@ -883,9 +893,17 @@ fieldset {
 
 
 /* ======profile page start =========*/
+.continer{
+  position: relative;
+}
+
+.parent-wrapper{
+  width: 100%;
+  height: 30rem;
+}
 .wrapper{
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%,-50%);
   min-width: 520px;
@@ -904,10 +922,12 @@ fieldset {
 }
 
 .wrapper .left img{
-  border-radius: 5px;
+  border-radius: 7px;
+  border:2px solid;
   margin-bottom: 13px;
   margin-top: 2rem;
-
+  height: 10rem;
+  width: 8rem;
 }
 
 .wrapper .left h4{
@@ -994,3 +1014,172 @@ fieldset {
 }
 
 /* =====profile page end ==========*/
+
+
+/* footer section */
+
+.site-footer
+{
+  background-color:#26272b;
+  padding:45px 0 20px;
+  font-size:15px;
+  line-height:24px;
+  color:#d1c4c4;
+}
+.site-footer hr
+{
+  border-top-color:#bbb;
+  opacity:0.5
+}
+.site-footer hr.small
+{
+  margin:20px 0
+}
+.site-footer h6
+{
+  color:#fff;
+  font-size:16px;
+  text-transform:uppercase;
+  margin-top:5px;
+  letter-spacing:2px
+}
+.site-footer a
+{
+  color:#737373;
+}
+.site-footer a:hover
+{
+  color:#3366cc;
+  text-decoration:none;
+}
+.footer-links
+{
+  padding-left:0;
+  list-style:none
+}
+.footer-links li
+{
+  display:block
+}
+.footer-links a
+{
+  color:#737373
+}
+.footer-links a:active,.footer-links a:focus,.footer-links a:hover
+{
+  color:#3366cc;
+  text-decoration:none;
+}
+.footer-links.inline li
+{
+  display:inline-block
+}
+.site-footer .social-icons
+{
+  text-align:right
+}
+.site-footer .social-icons a
+{
+  width:40px;
+  height:40px;
+  line-height:40px;
+  margin-left:6px;
+  margin-right:0;
+  border-radius:100%;
+  background-color:#33353d
+}
+.copyright-text
+{
+  margin:0
+}
+@media (max-width:991px)
+{
+  .site-footer [class^=col-]
+  {
+    margin-bottom:30px
+  }
+}
+@media (max-width:767px)
+{
+  .site-footer
+  {
+    padding-bottom:0
+  }
+  .site-footer .copyright-text,.site-footer .social-icons
+  {
+    text-align:center
+  }
+}
+.social-icons
+{
+  padding-left:0;
+  margin-bottom:0;
+  list-style:none
+}
+.social-icons li
+{
+  display:inline-block;
+  margin-bottom:4px
+}
+.social-icons li.title
+{
+  margin-right:15px;
+  text-transform:uppercase;
+  color:#96a2b2;
+  font-weight:700;
+  font-size:13px
+}
+.social-icons a{
+  background-color:#eceeef;
+  color:#818a91;
+  font-size:16px;
+  display:inline-block;
+  line-height:44px;
+  width:44px;
+  height:44px;
+  text-align:center;
+  margin-right:8px;
+  border-radius:100%;
+  -webkit-transition:all .2s linear;
+  -o-transition:all .2s linear;
+  transition:all .2s linear
+}
+.social-icons a:active,.social-icons a:focus,.social-icons a:hover
+{
+  color:#fff;
+  background-color:#29aafe
+}
+.social-icons.size-sm a
+{
+  line-height:34px;
+  height:34px;
+  width:34px;
+  font-size:14px
+}
+.social-icons a.facebook:hover
+{
+  background-color:#3b5998
+}
+.social-icons a.twitter:hover
+{
+  background-color:#00aced
+}
+.social-icons a.linkedin:hover
+{
+  background-color:#007bb6
+}
+.social-icons a.dribbble:hover
+{
+  background-color:#ea4c89
+}
+@media (max-width:767px)
+{
+  .social-icons li.title
+  {
+    display:block;
+    margin-right:0;
+    font-weight:600
+  }
+}
+
+/* footer section end */

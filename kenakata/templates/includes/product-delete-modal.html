@@ -1,0 +1,41 @@
+<style>
+    .modal-content {
+    background-color: #4e4848;
+    color: #ddd;
+    z-index: 999;
+    }
+    
+</style>
+
+
+<!-- Purchase Confirm -->
+<div class="modal fade" id="Modal-DeleteConfirm-{{ product.id }}"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="ModalLabel">
+            <!-- -->
+            Delete this product?
+        </h5>
+        <button type="button" class="btn-close text-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <h4 class="text-center">
+                Are you confirm to delete {{ product.name }} for {{ product.price }}$ ?
+            </h4>
+        </div>
+        <div class="modal-footer">
+            <form method="POST" action="{{ url_for('delete_product', product_id=product.id) }}">
+                <!-- <h6 class="text-center">
+                By clicking Purchase, you will purchase this product.
+                </h6> -->
+                <input id="purchased_product" class="btn btn-danger" name="purchased_product" type="submit" value="Confirm Delete">
+                
+            </form>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+    </div>
+</div>

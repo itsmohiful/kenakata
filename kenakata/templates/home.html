@@ -4,36 +4,54 @@ content %}
   <div class="row">
     <!-- sidebar -->
     <div class="col-md-4">
-      <h5 class="text-info">
+      <!-- <h5 class="text-info">
         <span class="text-success"><> ---</span> Sidebar<span
           class="text-success"
           >--- <></span
         >
-      </h5>
+      </h5> -->
 
       {% if current_user.is_authenticated %}
       <h6 class="text-info pl-2 mt-4">
-        <span class="text-success"
+        <span class="text-info"
           ><i class="fa-solid fa-sack-dollar"></i
         ></span>
         Wallet :
-        <span class="text-success fw-bold" style="font-size: 18px;">{{ current_user.budget_prettify }}</span>
+        <span class="text-warning fw-bold" style="font-size: 18px;">{{ current_user.budget_prettify }}</span>
       </h6>
 
+      <div>
+        {% if purchased_items %}
+        <div>
+          <h6 class="text-white">Purchased Products</h6>
+          <p class="text-white">You can sell the product again by clicking "sell it again"</p>
+        </div>
+          {% for product in purchased_items %}
+          {% include "includes/sell_modal.html" %}
+            <div class="card my-3" style="width: 10rem; background:#444;border:1px solid rgba(202, 85, 124, 0.685);">
+              <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <!-- <p class="card-text"></p> -->
+                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#Modal-SellConfirm-{{ product.id }}">Sell this again</button>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+
       {% else %}
-      <h6 class="text-info">Please, Sign In for Purchase</h6>
+      <h6 class="text-info mt-2">Please, Sign In for Purchase</h6>
       {% endif %}
     </div>
     <!-- end sidebar -->
 
     <!-- main section -->
     <div class="col-md-8">
-      <h6>Demo Title For Products</h6>
 
       <!-- Custom cards -->
-      <section class="mt-5 cards-section">
+      <section class="cards-section">
         <div class="container">
-          <h3>Custom Cards</h3>
+          <h3>Products For Your's</h3>
           <div class="row">
             {% for product in products %}
 

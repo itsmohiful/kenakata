@@ -2,8 +2,8 @@ from flask import flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 
 from kenakata import app, bcrypt, db
-from kenakata.forms import (LoginForm, ProductForm, ProfileUpdateForm,
-                            RegisterForm)
+from kenakata.forms import (LoginForm, ProductForm, ProductUpdateForm,
+                            ProfileUpdateForm, RegisterForm)
 from kenakata.models import Product, User
 from kenakata.utils import save_picture, save_product_picture
 
@@ -12,11 +12,16 @@ from kenakata.utils import save_picture, save_product_picture
 @app.route("/home")
 def home():
     products = Product.query.all()
+    if current_user.is_authenticated:
+        purchased_items = Product.query.filter_by(owner=current_user.id )
+    else:
+        purchased_items=None
+    return render_template("home.html",products=products, purchased_items=purchased_items, title='Home page')
 
-    return render_template("home.html",products=products,title='Home page')
 
 
 @app.route('/product-purchase/<int:product_id>', methods=['POST'])
+@login_required
 def product_purchase(product_id):
     if request.method == 'POST':
         product = Product.query.filter_by(id=product_id).first()
@@ -26,6 +31,22 @@ def product_purchase(product_id):
                 flash(f"Congratulations! You purchased {product.name} for {product.price}$", category='success')
             else:
                 flash(f"Unfortunately, you don't have enough money to purchase {product.name}!", category='danger')
+
+    return redirect(url_for('home'))
+
+
+
+@app.route('/product/sell/<int:product_id>', methods=['POST'])
+@login_required
+def product_sell(product_id):
+    if request.method == 'POST':
+        product = Product.query.filter_by(id=product_id).first()
+        if product:
+            if current_user.can_sell(product):
+                product.sell(current_user)
+                flash(f"Congrats! You have sell {product.name} for {product.price}$", category='success')
+            else:
+                flash(f"Unfortunately, you are not able to sell {product.name} again", category='danger')
 
     return redirect(url_for('home'))
 
@@ -51,10 +72,44 @@ def create_product():
 @app.route('/product-detail/<int:product_id>')
 def product_detail(product_id):
     product = Product.query.filter_by(id=product_id).first()
-    return render_template("product-details.html", product=product, title='product details')
+    return render_template("product-details.html", product=product, title='Product Details')
 
 
+@app.route('/update/product/<int:product_id>', methods=['GET', 'POST'])
+def update_product(product_id):
+    product = Product.query.filter_by(id=product_id).first()
+    form = ProductUpdateForm()
+    if form.validate_on_submit():
+        if form.image.data:
+            image_file = save_product_picture(form.image.data)
+            product.image = image_file
 
+        product.name = form.name.data
+        product.price = form.price.data
+        product.barcode = form.barcode.data
+        product.description = form.description.data 
+        
+        db.session.commit()
+
+        flash('Product updated successfully', 'success')
+        return redirect(url_for('product_detail',product_id=product.id))
+
+    elif request.method == 'GET':
+        form.name.data = product.name
+        form.price.data = product.price
+        form.barcode.data = product.barcode
+        form.image.data = product.image
+        form.description.data = product.description
+    return render_template("update-product.html", form=form, title='Update Product')
+
+
+@app.route('/delete/product/<int:product_id>', methods=['GET','POST'])
+def delete_product(product_id):
+    product = Product.query.filter_by(id=product_id).first()
+    db.session.delete(product)
+    db.session.commit()
+    flash('Product deleted successfully', 'success')
+    return redirect(url_for('home'))
 
 
 

@@ -28,6 +28,11 @@ class Product(db.Model):
         user.budget -= int(self.price)
         db.session.commit()
 
+    def sell(self, user):
+        self.owner = None
+        user.budget +=int(self.price)
+        db.session.commit()
+
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer(), primary_key=True, unique=True)
@@ -51,7 +56,8 @@ class User(db.Model, UserMixin):
     def can_purchase(self, product_obj):
         return self.budget >= int(product_obj.price)
 
-
+    def can_sell(self, product_obj):
+        return product_obj in self.products
 
     def check_password_correction(self, attempted_password):
         return bcrypt.check_password_hash(self.password, attempted_password)

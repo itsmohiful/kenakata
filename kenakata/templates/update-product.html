@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+    <div class="product-form-container">  
+        <form id="contact" action="" method="POST" enctype="multipart/form-data" style="border-top-left-radius: 2rem;
+        border-bottom-right-radius: 2rem; background:rgb(194, 191, 243)">
+            {{ form.hidden_tag() }}
+            <h3>Update Product</h3>
+            
+            <fieldset>
+                {{ form.name(placeholder='Product Name') }}
+            </fieldset>
+            <fieldset>
+                {{ form.price(placeholder='Product Price') }}
+            </fieldset>
+            <fieldset>
+                {{ form.barcode(placeholder='Barcode') }}
+            </fieldset>
+            
+            <fieldset>
+                {{ form.description(placeholder='Product Description') }}
+            </fieldset>
+            <fieldset>
+                {{ form.image.label() }}
+                <br>
+                {{ form.image() }}
+            </fieldset>
+            <fieldset>
+                <!-- <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button> -->
+                {{ form.submit(class='submit-button') }}
+            </fieldset>
+        </form>
+    </div>
+
+{% endblock %}

@@ -1,48 +1,50 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="wrapper">
-        <div class="left">
-            <img src="{{ url_for('static', filename='profile_images/'+ current_user.image) }}" alt="user" width="100">
-            <h4>{{ current_user.username }}</h4>
-            <a href="{{ url_for('profile_update') }}" class="btn btn-update">Update</a>
-        </div>
-        <div class="right">
-            <div class="info">
-                <h3>Information</h3>
-                <div class="info_data">
-                    <div class="data">
-                        <h4>Email</h4>
-                    <p>{{current_user.email}}</p>
-                    </div>
-                    <div class="data">
-                    <h4>Phone</h4>
-                        <p>0001-213-998761</p>
-                </div>
-                </div>
+    <div class="parent-wrapper">
+        <div class="wrapper">
+            <div class="left">
+                <img src="{{ url_for('static', filename='profile_images/'+ current_user.image) }}" alt="user" width="100">
+                <h4>{{ current_user.username }}</h4>
+                <a href="{{ url_for('profile_update') }}" class="btn btn-update">Update</a>
             </div>
-        
-        <div class="projects">
-                <h3>Products</h3>
-                <div class="projects_data">
-                    <div class="data">
-                        <h4>Purchase</h4>
-                        <p>( 5 )</p>
+            <div class="right">
+                <div class="info">
+                    <h3>Information</h3>
+                    <div class="info_data">
+                        <div class="data">
+                            <h4>Email</h4>
+                        <p>{{current_user.email}}</p>
+                        </div>
+                        <div class="data">
+                        <h4>Phone</h4>
+                            <p>0001-213-998761</p>
                     </div>
-                    <div class="data">
-                    <h4>Order</h4>
-                        <p>( 3 )</p>
+                    </div>
                 </div>
+            
+            <div class="projects">
+                    <h3>Products</h3>
+                    <div class="projects_data">
+                        <div class="data">
+                            <h4>Purchase</h4>
+                            <p>( 5 )</p>
+                        </div>
+                        <div class="data">
+                        <h4>Order</h4>
+                            <p>( 3 )</p>
+                    </div>
+                    </div>
                 </div>
+            
+                <div class="social_media">
+                    <ul>
+                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                </ul>
             </div>
-        
-            <div class="social_media">
-                <ul>
-                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-            </ul>
-        </div>
+            </div>
         </div>
     </div>
 {% endblock %}

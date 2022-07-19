@@ -1,0 +1,40 @@
+<style>
+    .modal-content {
+    background-color: #4e4848;
+    color: #ddd;
+    }
+    
+</style>
+
+
+<!-- Purchase Confirm -->
+<div class="modal fade" id="Modal-SellConfirm-{{ product.id }}"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="ModalLabel">
+            <!-- -->
+            Sell It Again?
+        </h5>
+        <button type="button" class="btn-close text-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <h4 class="text-center">
+                Are you sure you want to sell{{ product.name }} for {{ product.price }}$ ?
+            </h4>
+        </div>
+        <div class="modal-footer">
+            <form method="POST" action="{{ url_for('product_sell', product_id=product.id) }}">
+                <!-- <h6 class="text-center">
+                By clicking Purchase, you will purchase this product.
+                </h6> -->
+                <input id="purchased_product" class="btn btn-secondary" name="purchased_product" type="submit" value="Sell Again">
+                
+            </form>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+    </div>
+</div>
